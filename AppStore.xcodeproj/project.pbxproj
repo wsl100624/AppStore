@@ -20,6 +20,9 @@
 		ACF0B4CB2234D8F200CAAC6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACF0B4CA2234D8F200CAAC6E /* Assets.xcassets */; };
 		ACF0B4CE2234D8F200CAAC6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACF0B4CC2234D8F200CAAC6E /* LaunchScreen.storyboard */; };
 		ACF0B4D62234D9EF00CAAC6E /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0B4D52234D9EF00CAAC6E /* BaseTabBarController.swift */; };
+		BA8F03E6544D98FECF47A495 /* AppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0FDAB165A6F67FCB534E /* AppsController.swift */; };
+		BA8F0761E2FDB75EF36BC692 /* BaseListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F007F80CE1148B9B6D743 /* BaseListController.swift */; };
+		BA8F0C7DFC69297658FE571C /* AppsGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F03C2ECAC4531D11ACC4B /* AppsGroupCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		ACF0B4CD2234D8F200CAAC6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ACF0B4CF2234D8F200CAAC6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACF0B4D52234D9EF00CAAC6E /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		BA8F007F80CE1148B9B6D743 /* BaseListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseListController.swift; sourceTree = "<group>"; };
+		BA8F03C2ECAC4531D11ACC4B /* AppsGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsGroupCell.swift; sourceTree = "<group>"; };
+		BA8F0FDAB165A6F67FCB534E /* AppsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsController.swift; sourceTree = "<group>"; };
 		C7A27649A87BD9ECFDC73708 /* Pods-AppStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppStore/Pods-AppStore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +89,8 @@
 			children = (
 				AC6FF45A223AE44B0041C825 /* AppSearchController.swift */,
 				ACF0B4D52234D9EF00CAAC6E /* BaseTabBarController.swift */,
+				BA8F007F80CE1148B9B6D743 /* BaseListController.swift */,
+				BA8F0DF793216D63DBBF41FB /* Apps */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -138,6 +146,15 @@
 				ACF0B4CF2234D8F200CAAC6E /* Info.plist */,
 			);
 			path = AppStore;
+			sourceTree = "<group>";
+		};
+		BA8F0DF793216D63DBBF41FB /* Apps */ = {
+			isa = PBXGroup;
+			children = (
+				BA8F0FDAB165A6F67FCB534E /* AppsController.swift */,
+				BA8F03C2ECAC4531D11ACC4B /* AppsGroupCell.swift */,
+			);
+			path = Apps;
 			sourceTree = "<group>";
 		};
 		FD17AE4D52766A282373EF0C /* Pods */ = {
@@ -278,6 +295,9 @@
 				AC6FF45B223AE44B0041C825 /* AppSearchController.swift in Sources */,
 				AC6FF45E223AE9990041C825 /* SearchResultCell.swift in Sources */,
 				AC1DCA3C224430A800EBAD34 /* VerticalStackView.swift in Sources */,
+				BA8F0761E2FDB75EF36BC692 /* BaseListController.swift in Sources */,
+				BA8F03E6544D98FECF47A495 /* AppsController.swift in Sources */,
+				BA8F0C7DFC69297658FE571C /* AppsGroupCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
