@@ -9,9 +9,35 @@ class AppsPageController: BaseListController {
 
     let cellId = "cellId"
     let headerId = "headerId"
+    var appGroupResult: AppGroupResult?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupCollectionView()
+        
+        fetchData()
+    }
+    
+    fileprivate func fetchData() {
+        
+        Service.shared.fetchAppsGroup { (appGroupResult, error) in
+            if let error = error {
+                print(error)
+            }
+            
+            if let appGroupResult = appGroupResult {
+                self.appGroupResult = appGroupResult
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    fileprivate func setupCollectionView() {
+        
         collectionView.backgroundColor = .white
         collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(AppPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
@@ -28,11 +54,13 @@ class AppsPageController: BaseListController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppsGroupCell
+        cell.titleLabel.text = appGroupResult?.feed.title
+        cell.horizontalController.appGroupResult = appGroupResult
         return cell
     }
 

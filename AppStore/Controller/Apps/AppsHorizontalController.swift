@@ -11,6 +11,11 @@ import UIKit
 class AppsHorizontalController: BaseListController {
     
     let cellId = "cellId"
+    var appGroupResult: AppGroupResult? {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     let cellSpacing: CGFloat = 10
     let topBottomPadding: CGFloat = 12
@@ -29,11 +34,17 @@ class AppsHorizontalController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return appGroupResult?.feed.results.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        
+        let appResult = appGroupResult?.feed.results[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppRowCell
+        
+        cell.nameLabel.text = appResult?.name
+        cell.companyLabel.text = appResult?.artistName
+        cell.imageView.sd_setImage(with: URL(string: appResult?.artworkUrl100 ?? ""))
         
         return cell
     }

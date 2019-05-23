@@ -36,4 +36,29 @@ class Service {
         }.resume()
     }
     
+    func fetchAppsGroup(completion: @escaping (AppGroupResult?, Error?) -> ()) {
+        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-apps-we-love/all/50/explicit.json"
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completion(nil, error)
+            }
+            
+            guard let data = data else {return}
+            
+            do {
+                let appsGroupResult = try JSONDecoder().decode(AppGroupResult.self, from: data)
+                completion(appsGroupResult, nil)
+                
+            } catch {
+                completion(nil, error)
+            }
+        }.resume()
+
+    }
+    
+    
+    
 }
