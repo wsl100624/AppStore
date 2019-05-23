@@ -9,10 +9,17 @@ class AppsPageController: BaseListController {
 
     let cellId = "cellId"
     let headerId = "headerId"
-    var appGroupResult: AppGroupResult?
+    
+    var groups = [AppGroupResult]()
+    var socialApps = [SocialAppResult]()
+    
+    let loadingIndicator = UIActivityIndicatorView(style: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(loadingIndicator)
+        loadingIndicator.fillSuperview()
 
         setupCollectionView()
         
@@ -20,19 +27,61 @@ class AppsPageController: BaseListController {
     }
     
     fileprivate func fetchData() {
+        loadingIndicator.startAnimating()
+        var group1: AppGroupResult?
+        var group2: AppGroupResult?
+        var group3: AppGroupResult?
+        let dispatchGroup = DispatchGroup()
         
-        Service.shared.fetchAppsGroup { (appGroupResult, error) in
-            if let error = error {
-                print(error)
+        dispatchGroup.enter()
+        Service.shared.fetchAppsGroup(urlString: "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/25/explicit.json") { (appGroupResult, error) in
+            
+            dispatchGroup.leave()
+            
+            group1 = appGroupResult
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchAppsGroup(urlString: "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/25/explicit.json") { (appGroupResult, error) in
+            
+            dispatchGroup.leave()
+            
+            group2 = appGroupResult
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchAppsGroup(urlString: "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/25/explicit.json") { (appGroupResult, error) in
+            
+            dispatchGroup.leave()
+            
+            group3 = appGroupResult
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchSocialApps { (apps, error) in
+            dispatchGroup.leave()
+            if let apps = apps {
+                self.socialApps = apps
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            
+            self.loadingIndicator.stopAnimating()
+            
+            if let group = group1 {
+                self.groups.append(group)
+            }
+            if let group = group2 {
+                self.groups.append(group)
+            }
+            if let group = group3 {
+                self.groups.append(group)
             }
             
-            if let appGroupResult = appGroupResult {
-                self.appGroupResult = appGroupResult
-            }
+            self.collectionView.reloadData()
             
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+            
         }
     }
     
@@ -44,7 +93,8 @@ class AppsPageController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! AppPageHeader
+        header.horizontalController.socialApps = self.socialApps
         
         return header
     }
@@ -54,13 +104,16 @@ class AppsPageController: BaseListController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return groups.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let groupResult = groups[indexPath.item]
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppsGroupCell
-        cell.titleLabel.text = appGroupResult?.feed.title
-        cell.horizontalController.appGroupResult = appGroupResult
+        cell.titleLabel.text = groupResult.feed.title
+        cell.horizontalController.appGroupResult = groupResult
         return cell
     }
 

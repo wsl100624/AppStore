@@ -15,6 +15,12 @@ class AppsHeaderHorizontalController: BaseListController {
     let cellSpacing: CGFloat = 10
     let leftRightPadding: CGFloat = 16
     
+    var socialApps: [SocialAppResult] = [] {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +34,7 @@ class AppsHeaderHorizontalController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return socialApps.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -36,7 +42,11 @@ class AppsHeaderHorizontalController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppPageHeaderCell
+        
+        cell.companyLabel.text = socialApps[indexPath.row].name
+        cell.titleLabel.text = socialApps[indexPath.row].tagline
+        cell.imageView.sd_setImage(with: URL(string: socialApps[indexPath.row].imageUrl))
         
         return cell
     }
