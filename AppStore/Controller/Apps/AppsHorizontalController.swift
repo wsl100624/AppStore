@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppsHorizontalController: BaseListController {
+class AppsHorizontalController: BaseHorizontalListController {
     
     let cellId = "cellId"
     var appGroupResult: AppGroupResult? {
@@ -27,10 +27,8 @@ class AppsHorizontalController: BaseListController {
         collectionView.backgroundColor = .white
         
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.contentInset = .init(top: topBottomPadding, left: leftRightPadding, bottom: topBottomPadding, right: view.frame.width - 48)
         
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -56,8 +54,4 @@ class AppsHorizontalController: BaseListController {
         return .init(width: view.frame.width - 48, height: height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        return .init(top: topBottomPadding, left: leftRightPadding, bottom: topBottomPadding, right: leftRightPadding)
-    }
 }

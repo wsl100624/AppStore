@@ -8,11 +8,10 @@
 
 import UIKit
 
-class AppsHeaderHorizontalController: BaseListController {
+class AppsHeaderHorizontalController: BaseHorizontalListController {
     
     let cellId = "cellId"
     
-    let cellSpacing: CGFloat = 10
     let leftRightPadding: CGFloat = 16
     
     var socialApps: [SocialAppResult] = [] {
@@ -24,12 +23,9 @@ class AppsHeaderHorizontalController: BaseListController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
-        
         collectionView.backgroundColor = .white
         collectionView.register(AppPageHeaderCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.contentInset = .init(top: 0, left: leftRightPadding, bottom: 0, right: view.frame.width - 48)
         
     }
     
@@ -51,8 +47,5 @@ class AppsHeaderHorizontalController: BaseListController {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        return .init(top: 0, left: leftRightPadding, bottom: 0, right: leftRightPadding)
-    }
+    
 }
