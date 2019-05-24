@@ -21,6 +21,8 @@ class AppsHorizontalController: BaseHorizontalListController {
     let topBottomPadding: CGFloat = 12
     let leftRightPadding: CGFloat = 16
     
+    var didSelectHandler: ((FeedResult) -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +54,12 @@ class AppsHorizontalController: BaseHorizontalListController {
         let height = (view.frame.height - 2 * topBottomPadding - 2 * cellSpacing) / 3
         
         return .init(width: view.frame.width - 48, height: height)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let appResult = appGroupResult?.feed.results[indexPath.item] {
+            didSelectHandler?(appResult)
+        }
     }
     
 }

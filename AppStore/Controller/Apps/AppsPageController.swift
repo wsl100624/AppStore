@@ -113,7 +113,15 @@ class AppsPageController: BaseListController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppsGroupCell
         cell.titleLabel.text = groupResult.feed.title
+        
         cell.horizontalController.appGroupResult = groupResult
+        
+        cell.horizontalController.didSelectHandler = { [weak self] feedResult in
+            let appDetailController = AppDetailController()
+            appDetailController.navigationItem.title = feedResult.name
+            self?.navigationController?.pushViewController(appDetailController, animated: true)
+        }
+        
         return cell
     }
 
