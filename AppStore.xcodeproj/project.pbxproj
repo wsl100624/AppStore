@@ -17,6 +17,10 @@
 		AC00DCB4229856260028E053 /* AppDetailPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00DCB3229856260028E053 /* AppDetailPreviewCell.swift */; };
 		AC00DCB62298592C0028E053 /* AppDetailPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00DCB52298592C0028E053 /* AppDetailPreviewController.swift */; };
 		AC00DCB822985A860028E053 /* PreviewScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00DCB722985A860028E053 /* PreviewScreenshotCell.swift */; };
+		AC00DCBA22987C350028E053 /* AppDetailOverallReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00DCB922987C350028E053 /* AppDetailOverallReviewCell.swift */; };
+		AC00DCBC22987D3C0028E053 /* AppDetailReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00DCBB22987D3C0028E053 /* AppDetailReviewController.swift */; };
+		AC00DCBE229880B60028E053 /* SingleReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00DCBD229880B60028E053 /* SingleReviewCell.swift */; };
+		AC00DCC022988AF90028E053 /* ReviewFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00DCBF22988AF90028E053 /* ReviewFeed.swift */; };
 		AC1DCA3C224430A800EBAD34 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DCA3B224430A800EBAD34 /* VerticalStackView.swift */; };
 		AC1DCA3E22443E4A00EBAD34 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DCA3D22443E4A00EBAD34 /* SearchResult.swift */; };
 		AC1DCA4522453AF500EBAD34 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DCA4422453AF500EBAD34 /* Service.swift */; };
@@ -52,6 +56,10 @@
 		AC00DCB3229856260028E053 /* AppDetailPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailPreviewCell.swift; sourceTree = "<group>"; };
 		AC00DCB52298592C0028E053 /* AppDetailPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailPreviewController.swift; sourceTree = "<group>"; };
 		AC00DCB722985A860028E053 /* PreviewScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreenshotCell.swift; sourceTree = "<group>"; };
+		AC00DCB922987C350028E053 /* AppDetailOverallReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailOverallReviewCell.swift; sourceTree = "<group>"; };
+		AC00DCBB22987D3C0028E053 /* AppDetailReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailReviewController.swift; sourceTree = "<group>"; };
+		AC00DCBD229880B60028E053 /* SingleReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleReviewCell.swift; sourceTree = "<group>"; };
+		AC00DCBF22988AF90028E053 /* ReviewFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewFeed.swift; sourceTree = "<group>"; };
 		AC1DCA3B224430A800EBAD34 /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		AC1DCA3D22443E4A00EBAD34 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		AC1DCA4422453AF500EBAD34 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -103,6 +111,7 @@
 			children = (
 				AC00DCAF22973F540028E053 /* AppDetailController.swift */,
 				AC00DCB52298592C0028E053 /* AppDetailPreviewController.swift */,
+				AC00DCBB22987D3C0028E053 /* AppDetailReviewController.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -113,6 +122,7 @@
 				AC1DCA3D22443E4A00EBAD34 /* SearchResult.swift */,
 				AC00DCA822965E390028E053 /* SocialAppResult.swift */,
 				AC00DCA622963B350028E053 /* AppsGroupResult.swift */,
+				AC00DCBF22988AF90028E053 /* ReviewFeed.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -148,6 +158,8 @@
 				AC00DCB1229793900028E053 /* AppDetailCell.swift */,
 				AC00DCB3229856260028E053 /* AppDetailPreviewCell.swift */,
 				AC00DCB722985A860028E053 /* PreviewScreenshotCell.swift */,
+				AC00DCB922987C350028E053 /* AppDetailOverallReviewCell.swift */,
+				AC00DCBD229880B60028E053 /* SingleReviewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,9 +167,9 @@
 		AC6FF461223AF1900041C825 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AC249AF422950B7600DA53B0 /* Extensions.swift */,
 				AC6FF45F223AF1890041C825 /* UIView+Layout.swift */,
 				AC1DCA3B224430A800EBAD34 /* VerticalStackView.swift */,
-				AC249AF422950B7600DA53B0 /* Extensions.swift */,
 				AC00DCAC22972D910028E053 /* SnappingCollectionViewLayout.swift */,
 			);
 			path = Helpers;
@@ -339,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC00DCC022988AF90028E053 /* ReviewFeed.swift in Sources */,
 				ACF0B4C62234D8F000CAAC6E /* ViewController.swift in Sources */,
 				AC00DCB822985A860028E053 /* PreviewScreenshotCell.swift in Sources */,
 				ACF0B4C42234D8F000CAAC6E /* AppDelegate.swift in Sources */,
@@ -349,6 +362,7 @@
 				AC249AF722950F0D00DA53B0 /* AppPageHeader.swift in Sources */,
 				AC1DCA4522453AF500EBAD34 /* Service.swift in Sources */,
 				AC00DCAB22972C120028E053 /* BaseHorizontalListController.swift in Sources */,
+				AC00DCBA22987C350028E053 /* AppDetailOverallReviewCell.swift in Sources */,
 				AC249AF32295018D00DA53B0 /* AppRowCell.swift in Sources */,
 				AC00DCB2229793900028E053 /* AppDetailCell.swift in Sources */,
 				AC6FF45B223AE44B0041C825 /* AppSearchController.swift in Sources */,
@@ -357,6 +371,8 @@
 				AC6FF45E223AE9990041C825 /* SearchResultCell.swift in Sources */,
 				AC1DCA3C224430A800EBAD34 /* VerticalStackView.swift in Sources */,
 				AC249AF522950B7600DA53B0 /* Extensions.swift in Sources */,
+				AC00DCBE229880B60028E053 /* SingleReviewCell.swift in Sources */,
+				AC00DCBC22987D3C0028E053 /* AppDetailReviewController.swift in Sources */,
 				AC00DCB4229856260028E053 /* AppDetailPreviewCell.swift in Sources */,
 				BA8F0761E2FDB75EF36BC692 /* BaseListController.swift in Sources */,
 				AC00DCA922965E390028E053 /* SocialAppResult.swift in Sources */,

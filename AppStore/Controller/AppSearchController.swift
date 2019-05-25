@@ -108,5 +108,13 @@ class AppSearchController: BaseListController, UISearchBarDelegate {
         return .init(width: view.frame.width, height: 350)
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let appId = String(appResults[indexPath.item].trackId)
+        let detailController = AppDetailController(appId: appId)
+        
+        navigationController?.pushViewController(detailController, animated: true)
+    }
+    
 
 }

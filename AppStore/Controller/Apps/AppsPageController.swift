@@ -80,8 +80,6 @@ class AppsPageController: BaseListController {
             }
             
             self.collectionView.reloadData()
-            
-            
         }
     }
     
@@ -118,8 +116,7 @@ class AppsPageController: BaseListController {
         
         cell.horizontalController.didSelectHandler = { [weak self] feedResult in
             
-            let appDetailController = AppDetailController()
-            appDetailController.appId = feedResult.id
+            let appDetailController = AppDetailController(appId: feedResult.id)
             
             self?.navigationController?.pushViewController(appDetailController, animated: true)
         }

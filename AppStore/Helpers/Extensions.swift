@@ -33,3 +33,10 @@ extension UILabel {
         self.numberOfLines = numberOfLines
     }
 }
+
+extension UIStackView {
+    convenience init(arrangedSubviews: [UIView], customSpacing: CGFloat) {
+        self.init(arrangedSubviews: arrangedSubviews)
+        self.spacing = customSpacing
+    }
+}
