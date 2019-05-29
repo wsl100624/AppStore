@@ -8,44 +8,43 @@
 
 import UIKit
 
-class AppFullscreenController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    
+class AppFullscreenController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        let tableView = UITableView(frame: .zero, style: .plain)
+        
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        view.addSubview(tableView)
-        tableView.fillSuperview()
-        
-        
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    var didSelectCloseButton: (() -> ())?
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            let cell = UITableViewCell()
-            let todayCell = TodayCell()
-            cell.addSubview(todayCell)
-            todayCell.centerInSuperview(size: .init(width: 450, height: 450))
-            
-            return cell
+            let headerCell = AppFullscreenHeaderCell()
+            headerCell.closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+            return headerCell
         }
         
         let cell = AppFullscreenDescriptionCell()
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 450
+    @objc fileprivate func handleDismiss(button: UIButton) {
+        button.isHidden = true
+        self.didSelectCloseButton?()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return TodayController.cellSize
+        }
+        
+        return UITableView.automaticDimension
     }
 }

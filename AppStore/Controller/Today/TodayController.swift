@@ -23,16 +23,31 @@ class TodayController: BaseListController {
     }
     
     var appFullscreenController: AppFullscreenController!
+    var cellStartingFrame: CGRect?
+    var cardView: UIView?
+    
+    var topConstraint: NSLayoutConstraint?
+    var leadingConstraint: NSLayoutConstraint?
+    var widthConstraint: NSLayoutConstraint?
+    var heightConstraint: NSLayoutConstraint?
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let appFullscreenController = AppFullscreenController()
         self.appFullscreenController = appFullscreenController
-        let redV = appFullscreenController.view!
-        self.view.addSubview(redV)
+        
+        appFullscreenController.didSelectCloseButton = {
+            self.handleRemoveFullscreenCardView()
+        }
+        
+        self.cardView = appFullscreenController.view!
+        
+        guard let cardView = self.cardView else {return}
+        
+        self.view.addSubview(cardView)
         self.addChild(appFullscreenController)
         
-        redV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
+        cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveFullscreenCardView)))
         
         // Get the absolute coordinate of the cell
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
@@ -40,27 +55,47 @@ class TodayController: BaseListController {
         
         self.cellStartingFrame = startingFrame
         
-        redV.frame = startingFrame
-        redV.layer.cornerRadius = 16
+        cardView.translatesAutoresizingMaskIntoConstraints = false
+        topConstraint = cardView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: startingFrame.origin.y)
+        leadingConstraint = cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
+        widthConstraint = cardView.widthAnchor.constraint(equalToConstant: startingFrame.width)
+        heightConstraint = cardView.heightAnchor.constraint(equalToConstant: startingFrame.height)
+
+        [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach({$0?.isActive = true})
+        self.view.layoutIfNeeded()
+        
+        cardView.layer.cornerRadius = 16
+
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            redV.frame = self.view.frame
+            
+            self.topConstraint?.constant = 0
+            self.leadingConstraint?.constant = 0
+            self.widthConstraint?.constant = self.view.frame.width
+            self.heightConstraint?.constant = self.view.frame.height
+            self.view.layoutIfNeeded()
+            
             self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
         }, completion: nil)
     }
     
-    var cellStartingFrame: CGRect?
     
-    @objc fileprivate func handleRemoveRedView(tapGesture: UITapGestureRecognizer) {
-        
+    @objc fileprivate func handleRemoveFullscreenCardView() {
+
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             
-            if let frame = self.cellStartingFrame {
-                tapGesture.view?.frame = frame
-            }
-        }, completion: { _ in
+            self.appFullscreenController.tableView.contentOffset = .zero
             
-            tapGesture.view?.removeFromSuperview()
+            if let startingFrame = self.cellStartingFrame {
+                self.topConstraint?.constant = startingFrame.origin.y
+                self.leadingConstraint?.constant = startingFrame.origin.x
+                self.widthConstraint?.constant = startingFrame.width
+                self.heightConstraint?.constant = startingFrame.height
+                self.view.layoutIfNeeded()
+            }
+            
+        }, completion: { _ in
+            self.appFullscreenController.view?.removeFromSuperview()
             self.appFullscreenController.removeFromParent()
         })
         
@@ -79,8 +114,9 @@ class TodayController: BaseListController {
         return cell
     }
     
+    static let cellSize: CGFloat = 450
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 64, height: 450)
+        return .init(width: view.frame.width - 64, height: TodayController.cellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
